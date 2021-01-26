@@ -20,14 +20,14 @@ cheServerIngress: The Che server ingress custom settings
 cheServerRoute: The Che server route custom settings
 cheWorkspaceClusterRole: Custom cluster role bound to the user for the Che workspaces. The default roles are used if this is omitted or left blank.
 customCheProperties: Map of additional environment variables that will be applied in the generated `che` config map to be used by the Che server, in addition to the values already generated from other fields of the `CheCluster` custom resource (CR). When `customCheProperties` contains a property that would be normally generated in `che` config map from other CR fields, the value defined in the `customCheProperties` is used instead.
-devfileRegistryImage: Overrides the container image used in the Devfile registry deployment. This includes the image tag. Omit it or leave it empty to use the default container image provided by the Operator.
-devfileRegistryIngress: Devfile registry ingress custom settings
-devfileRegistryMemoryLimit: Overrides the memory limit used in the Devfile registry deployment. Defaults to 256Mi.
-devfileRegistryMemoryRequest: Overrides the memory request used in the Devfile registry deployment. Defaults to 16Mi.
-devfileRegistryPullPolicy: Overrides the image pull policy used in the Devfile registry deployment. Default value is `Always` for `nightly` or `latest` images, and `IfNotPresent` in other cases.
-devfileRegistryRoute: Devfile registry route custom settings
-devfileRegistryUrl: Public URL of the Devfile registry, that serves sample, ready-to-use devfiles. Set this ONLY when a use of an external devfile registry is needed. See the `externalDevfileRegistry` field. By default,, this will be automatically calculated by the Operator.
-externalDevfileRegistry: Instructs the Operator on whether or not to deploy a dedicated Devfile registry server. By default, a dedicated devfile registry server is started. When `externalDevfileRegistry` is `true`, no such dedicated server will be started by the Operator and you will have to manually set the `devfileRegistryUrl` field
+devfileRegistryImage: Overrides the container image used in the devfile registry deployment. This includes the image tag. Omit it or leave it empty to use the default container image provided by the Operator.
+devfileRegistryIngress: The devfile registry ingress custom settings
+devfileRegistryMemoryLimit: Overrides the memory limit used in the devfile registry deployment. Defaults to 256Mi.
+devfileRegistryMemoryRequest: Overrides the memory request used in the devfile registry deployment. Defaults to 16Mi.
+devfileRegistryPullPolicy: Overrides the image pull policy used in the devfile registry deployment. Default value is `Always` for `nightly` or `latest` images, and `IfNotPresent` in other cases.
+devfileRegistryRoute: The devfile registry route custom settings
+devfileRegistryUrl: Public URL of the devfile registry, that serves sample, ready-to-use devfiles. Set this ONLY when a use of an external devfile registry is needed. See the `externalDevfileRegistry` field. By default,, this will be automatically calculated by the Operator.
+externalDevfileRegistry: Instructs the Operator on whether or not to deploy a dedicated devfile registry server. By default, a dedicated devfile registry server is started. When `externalDevfileRegistry` is `true`, no such dedicated server will be started by the Operator and you will have to manually set the `devfileRegistryUrl` field
 externalPluginRegistry: Instructs the Operator on whether or not to deploy a dedicated Plugin registry server. By default, a dedicated plugin registry server is started. When `externalPluginRegistry` is `true`, no such dedicated server will be started by the Operator and you will have to manually set the `pluginRegistryUrl` field.
 gitSelfSignedCert: When enabled, the certificate from `che-git-self-signed-cert` config map will be propagated to the Che components and provide particular configuration for Git.
 nonProxyHosts: Do not use the list of hosts to configure a proxy. Specify wild card domain use the following form `.<DOMAIN>` and `|` as delimiter, eg\: `localhost|.my.host.com|123.42.12.32` Only use when configuring a proxy is required. Operator respects OpenShift cluster wide proxy configuration and no additional configuration is required, but defining `nonProxyHosts` in a custom resource leads to merging non proxy hosts lists from the cluster proxy configuration and ones defined in the custom resources. (see the doc https\://docs.openshift.com/container-platform/4.4/networking/enable-cluster-wide-proxy.html) (see also the `proxyURL` fields).
@@ -146,7 +146,7 @@ cheClusterRunning: Status of a Che installation. Can be `Available`, `Unavailabl
 cheURL: Public URL to the Che server
 cheVersion: Current installed Che version
 dbProvisioned: Indicates that a Postgres instance has been correctly provisioned or not.
-devfileRegistryURL: Public URL to the Devfile registry
+devfileRegistryURL: Public URL to the devfile registry
 helpLink: A URL that points to some URL where to find help related to the current Operator status.
 keycloakProvisioned: Indicates whether an Identity Provider instance (Keycloak / RH SSO) has been provisioned with realm, client and user
 keycloakURL: Public URL to the Identity Provider server (Keycloak / RH SSO).
