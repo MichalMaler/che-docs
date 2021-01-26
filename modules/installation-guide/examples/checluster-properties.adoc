@@ -6,7 +6,7 @@
  Property: Description 
 airGapContainerRegistryHostname: Optional host name, or URL, to an alternate container registry to pull images from. This value overrides the container registry host name defined in all the default container images involved in a Che deployment. This is particularly useful to install Che in a restricted environment.
 airGapContainerRegistryOrganization: Optional repository name of an alternate container registry to pull images from. This value overrides the container registry organization defined in all the default container images involved in a Che deployment. This is particularly useful to install {prod-short} in a restricted environment.
-allowUserDefinedWorkspaceNamespaces: Defines that a user can specify Kubernetes namespace, or OpenShift project, different from the default. It's NOT RECOMMENDED to be configured true without OpenShift OAuth configured. The OpenShift infrastructure also uses this property.
+allowUserDefinedWorkspaceNamespaces: Defines that a user is allowed to specify Kubernetes namespace, or OpenShift project, different from the default. It's NOT RECOMMENDED to be configured true without OpenShift OAuth configured. The OpenShift infrastructure also uses this property.
 cheClusterRoles: A comma-separated list of ClusterRoles that will be assigned to Che ServiceAccount. Be aware that the che-operator has to already have all permissions in these ClusterRoles to grant them.
 cheDebug: Enables the debug mode for Che server. Defaults to `false`.
 cheFlavor: Flavor of the installation. This is either `che` for upstream Che installations, or `codeready` for CodeReady Workspaces installation. If not necessary, do not override the default value.
@@ -120,7 +120,7 @@ workspacePVCStorageClassName: Storage class for the Persistent Volume Claims ded
  Property: Description 
 ingressClass: Ingress class that will define the which controler will manage ingresses. Defaults to `nginx`. NB\: This drives the `is kubernetes.io/ingress.class` annotation on Che-related ingresses.
 ingressDomain: Global ingress domain for a K8S cluster. This MUST be explicitly specified\: there are no defaults.
-ingressStrategy: Strategy for ingress creation. This can be `multi-host` (host is explicitly provided in ingress), `single-host` (host is provided, path-based rules) and `default-host.*`(no host is provided, path-based rules). Defaults to `\multi-host` Deprecated in favor of \serverExposureStrategy\ in the \server\ section, which defines this regardless of the cluster type. When both are defined, the `serverExposureStrategy` option takes precedence.
+ingressStrategy: Strategy for ingress creation. Options are: `multi-host` (host is explicitly provided in ingress), `single-host` (host is provided, path-based rules) and `default-host.*`(no host is provided, path-based rules). Defaults to `\multi-host` Deprecated in favor of \serverExposureStrategy\ in the \server\ section, which defines this regardless of the cluster type. When both are defined, the `serverExposureStrategy` option takes precedence.
 securityContextFsGroup: The FSGroup in which the Che Pod and Workspace Pods containers runs in. Default value is `1724`.
 securityContextRunAsUser: ID of the user the Che Pod and Workspace Pods containers run as. Default value is `1724`.
 singleHostExposureType: When the serverExposureStrategy is set to \single-host\, the way the server, registries and workspaces are exposed is further configured by this property. The possible values are \native\ (which means that the server and workspaces are exposed using ingresses on K8s) or \gateway\ where the server and workspaces are exposed using a custom gateway based on Traefik. All the endpoints whether backed by the ingress or gateway \route\ always point to the subpaths on the same domain. Defaults to \native\.
@@ -147,7 +147,7 @@ cheURL: Public URL to the Che server
 cheVersion: Current installed Che version
 dbProvisioned: Indicates that a Postgres instance has been correctly provisioned or not.
 devfileRegistryURL: Public URL to the Devfile registry
-helpLink: A URL that can point to some URL where to find help related to the current Operator status.
+helpLink: A URL that points to some URL where to find help related to the current Operator status.
 keycloakProvisioned: Indicates whether an Identity Provider instance (Keycloak / RH SSO) has been provisioned with realm, client and user
 keycloakURL: Public URL to the Identity Provider server (Keycloak / RH SSO).
 message: A human readable message indicating details about why the Pod is in this condition.
