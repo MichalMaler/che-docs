@@ -7,7 +7,7 @@
 airGapContainerRegistryHostname: Optional host name, or URL, to an alternate container registry to pull images from. This value overrides the container registry host name defined in all the default container images involved in a Che deployment. This is particularly useful to install Che in a restricted environment.
 airGapContainerRegistryOrganization: Optional repository name of an alternate container registry to pull images from. This value overrides the container registry organization defined in all the default container images involved in a Che deployment. This is particularly useful to install {prod-short} in a restricted environment.
 allowUserDefinedWorkspaceNamespaces: Defines that a user can specify Kubernetes namespace, or OpenShift project, different from the default. It's NOT RECOMMENDED to be configured true without OpenShift OAuth configured. The OpenShift infrastructure also uses this property.
-cheClusterRoles: A comma-separated list of ClusterRoles that will be assigned to che ServiceAccount. Be aware that the che-operator has to already have all permissions in these ClusterRoles to grant them.
+cheClusterRoles: A comma-separated list of ClusterRoles that will be assigned to Che ServiceAccount. Be aware that the che-operator has to already have all permissions in these ClusterRoles to grant them.
 cheDebug: Enables the debug mode for Che server. Defaults to `false`.
 cheFlavor: Flavor of the installation. This is either `che` for upstream Che installations, or `codeready` for CodeReady Workspaces installation. If not necessary, do not override the default value.
 cheHost: Public host name of the installed Che server. When value is omitted, the value it will be automatically set by the Operator. See the `cheHostTLSSecret` field.
@@ -16,8 +16,8 @@ cheImage: Overrides the container image used in Che deployment. This does NOT in
 cheImagePullPolicy: Overrides the image pull policy used in Che deployment. Default value is `Always` for `nightly` or `latest` images, and `IfNotPresent` in other cases.
 cheImageTag: Overrides the tag of the container image used in Che deployment. Omit it or leave it empty to use the default image tag provided by the Operator.
 cheLogLevel: Log level for the Che server\: `INFO` or `DEBUG`. Defaults to `INFO`.
-cheServerIngress: Che server ingress custom settings
-cheServerRoute: Che server route custom settings
+cheServerIngress: The Che server ingress custom settings
+cheServerRoute: The Che server route custom settings
 cheWorkspaceClusterRole: Custom cluster role bound to the user for the Che workspaces. The default roles are used if this is omitted or left blank.
 customCheProperties: Map of additional environment variables that will be applied in the generated `che` config map to be used by the Che server, in addition to the values already generated from other fields of the `CheCluster` custom resource (CR). When `customCheProperties` contains a property that would be normally generated in `che` config map from other CR fields, the value defined in the `customCheProperties` is used instead.
 devfileRegistryImage: Overrides the container image used in the Devfile registry deployment. This includes the image tag. Omit it or leave it empty to use the default container image provided by the Operator.
@@ -44,10 +44,10 @@ proxySecret: The secret that contains `user` and `password` for a proxy server. 
 proxyURL: URL (protocol+host name) of the proxy server. This drives the appropriate changes in the `JAVA_OPTS` and `https(s)_proxy` variables in the Che server and workspaces containers. Only use when configuring a proxy is required. Operator respects OpenShift cluster wide proxy configuration and no additional configuration is required, but defining `proxyUrl` in a custom resource leads to overrides the cluster proxy configuration with fields `proxyUrl`, `proxyPort`, `proxyUser` and `proxyPassword` from the custom resource. (see the doc https\://docs.openshift.com/container-platform/4.4/networking/enable-cluster-wide-proxy.html) (see also the `proxyPort` and `nonProxyHosts` fields).
 proxyUser: User name of the proxy server. Only use when configuring a proxy is required (see also the `proxyURL`, `proxyPassword` and `proxySecret` fields).
 selfSignedCert: Deprecated. The value of this flag is ignored. The Che Operator will automatically detect if the router certificate is self-signed and propagate it to other components, such as the Che server.
-serverExposureStrategy: Sets the server and workspaces exposure type. Possible values are \multi-host\, \single-host\, \default-host\. Defaults to \multi-host\ which creates a separate ingress (or route on OpenShift) for every required endpoint. \single-host\ makes Che exposed on a single host name with workspaces exposed on subpaths. Please read the docs to learn about the limitations of this approach. Also consult the `singleHostExposureType` property to further configure how the Operator and Che server make that happen on Kubernetes. \default-host\ exposes che server on the host of the cluster. Please read the docs to learn about the limitations of this approach.
+serverExposureStrategy: Sets the server and workspaces exposure type. Possible values are \multi-host\, \single-host\, \default-host\. Defaults to \multi-host\ which creates a separate ingress (or route on OpenShift) for every required endpoint. \single-host\ makes Che exposed on a single host name with workspaces exposed on subpaths. Please read the docs to learn about the limitations of this approach. Also consult the `singleHostExposureType` property to further configure how the Operator and the Che server make that happen on Kubernetes. \default-host\ exposes the Che server on the host of the cluster. Please read the docs to learn about the limitations of this approach.
 serverMemoryLimit: Overrides the memory limit used in the Che server deployment. Defaults to 1Gi.
 serverMemoryRequest: Overrides the memory request used in the Che server deployment. Defaults to 512Mi.
-serverTrustStoreConfigMapName: Name of the config-map with public certificates to add to Java trust store of the Che server. This is usually required when adding the OpenShift OAuth provider which has https endpoint signed with self-signed cert. So, Che server must be aware of its CA cert to be able to request it. This is disabled by default.
+serverTrustStoreConfigMapName: Name of the config-map with public certificates to add to Java trust store of the Che server. This is usually required when adding the OpenShift OAuth provider which has https endpoint signed with self-signed cert. The Che server must be aware of its CA cert to be able to request it. This is disabled by default.
 singleHostGatewayConfigMapLabels: The labels that need to be present (and are put) on the configmaps representing the gateway configuration.
 singleHostGatewayConfigSidecarImage: The image used for the gateway sidecar that provides configuration to the gateway. Omit it or leave it empty to use the default container image provided by the Operator.
 singleHostGatewayImage: The image used for the gateway in the single host mode. Omit it or leave it empty to use the default container image provided by the Operator.
@@ -133,7 +133,7 @@ tlsSecretName: Name of a secret that will be used to setup ingress TLS terminati
 [cols="2,5", options="header"]
 :=== 
  Property: Description 
-enable: Enables `metrics` Che server endpoint. Default to `true`.
+enable: Enables `metrics` the Che server endpoint. Default to `true`.
 :=== 
 
 [id="checluster-custom-resource-status-settings_{context}"]
