@@ -51,7 +51,7 @@ serverTrustStoreConfigMapName: Name of the config-map with public certificates t
 singleHostGatewayConfigMapLabels: The labels that need to be present (and are put) on the configmaps representing the gateway configuration.
 singleHostGatewayConfigSidecarImage: The image used for the gateway sidecar that provides configuration to the gateway. Omit it or leave it empty to use the default container image provided by the Operator.
 singleHostGatewayImage: The image used for the gateway in the single host mode. Omit it or leave it empty to use the default container image provided by the Operator.
-tlsSupport: Deprecated. Instructs the Operator to deploy Che in TLS mode. This is enabled by default. Disabling TLS may cause malfunction of some Che components.
+tlsSupport: Deprecated. Instructs the Operator to deploy Che in TLS mode. This is enabled by default. Disabling TLS sometimes cause malfunction of some Che components.
 useInternalClusterSVCNames: Use internal cluster svc names to communicate between components to speed up the traffic and avoid proxy issues. The default value is `true`.
 workspaceNamespaceDefault: Defines Kubernetes default namespace in which user's workspaces are created if user does not override it. It's possible to use <username>, <userid> and <workspaceid> placeholders (e.g.\: che-workspace-<username>). In that case, new namespace will be created for each user (or workspace). Is used by OpenShift infrastructure as well to specify Project
 :=== 
@@ -68,7 +68,7 @@ chePostgresPassword: Postgres password that the Che server uses to connect to th
 chePostgresPort: Postgres Database port that the Che server uses to connect to. Defaults to 5432. Override this value ONLY when using an external database. See field `externalDb`. In the default case it will be automatically set by the Operator.
 chePostgresSecret: The secret that contains Postgres `user` and `password` that the Che server uses to connect to the DB. When the secret is defined, the `chePostgresUser` and `chePostgresPassword` are ignored. When the value is omitted or left blank, the one of folllowing scenarios applies: 1. `chePostgresUser` and `chePostgresPassword` are defined, then they will be used to connect to the DB. 2. `chePostgresUser` or `chePostgresPassword` are not defined, then a new secret with the name `che-postgres-secret` will be created with default value of `pgche` for `user` and with an auto-generated value for `password`.
 chePostgresUser: Postgres user that the Che server uses to connect to the DB. Defaults to `pgche`.
-externalDb: Instructs the Operator on whether or not to deploy a dedicated database. By default, a dedicated Postgres database is deployed as part of the Che installation. When `externalDb` is `true`, no dedicated database will be deployed by the Operator and you might need to provide connection details to the external DB you want to use. See also all the fields starting with\: `chePostgres`.
+externalDb: Instructs the Operator on whether or not to deploy a dedicated database. By default, a dedicated Postgres database is deployed as part of the Che installation. When `externalDb` is `true`, no dedicated database will be deployed by the Operator and you will need to provide connection details to the external DB you want to use. See also all the fields starting with\: `chePostgres`.
 postgresImage: Overrides the container image used in the Postgres database deployment. This includes the image tag. Omit it or leave it empty to use the default container image provided by the Operator.
 postgresImagePullPolicy: Overrides the image pull policy used in the Postgres database deployment. Default value is `Always` for `nightly` or `latest` images, and `IfNotPresent` in other cases.
 :=== 
@@ -79,7 +79,7 @@ postgresImagePullPolicy: Overrides the image pull policy used in the Postgres da
 [cols="2,5", options="header"]
 :=== 
  Property: Description 
-externalIdentityProvider: Instructs the Operator on whether or not to deploy a dedicated Identity Provider (Keycloak or RH SSO instance). By default, a dedicated Identity Provider server is deployed as part of the Che installation. When `externalIdentityProvider` is `true`, no dedicated identity provider will be deployed by the Operator and you might need to provide details about the external identity provider you want to use. See also all the other fields starting with\: `identityProvider`.
+externalIdentityProvider: Instructs the Operator on whether or not to deploy a dedicated Identity Provider (Keycloak or RH SSO instance). By default, a dedicated Identity Provider server is deployed as part of the Che installation. When `externalIdentityProvider` is `true`, no dedicated identity provider will be deployed by the Operator and you will need to provide details about the external identity provider you want to use. See also all the other fields starting with\: `identityProvider`.
 identityProviderAdminUserName: Overrides the name of the Identity Provider admin user. Defaults to `admin`.
 identityProviderClientId: Name of a Identity provider (Keycloak / RH SSO) `client-id` that is used for Che. This is useful to override it ONLY if you use an external Identity Provider (see the `externalIdentityProvider` field). When omitted or left blank, it is set to the value of the `flavour` field suffixed with `-public`.
 identityProviderImage: Overrides the container image used in the Identity Provider (Keycloak / RH SSO) deployment. This includes the image tag. Omit it or leave it empty to use the default container image provided by the Operator.
@@ -105,7 +105,7 @@ updateAdminPassword: Forces the default `admin` Che user to update password on f
 :=== 
  Property: Description 
 postgresPVCStorageClassName: Storage class for the Persistent Volume Claim dedicated to the Postgres database. When omitted or left blank, a default storage class is used.
-preCreateSubPaths: Instructs the Che server to launch a special Pod to pre-create a sub-path in the Persistent Volumes. Defaults to `false`, however it might need to enable it according to the configuration of your K8S cluster.
+preCreateSubPaths: Instructs the Che server to launch a special Pod to pre-create a sub-path in the Persistent Volumes. Defaults to `false`, however it will need to enable it according to the configuration of your K8S cluster.
 pvcClaimSize: Size of the persistent volume claim for workspaces. Defaults to `1Gi`
 pvcJobsImage: Overrides the container image used to create sub-paths in the Persistent Volumes. This includes the image tag. Omit it or leave it empty to use the default container image provided by the Operator. See also the `preCreateSubPaths` field.
 pvcStrategy: Persistent volume claim strategy for the Che server. This Can be\:`common` (all workspaces PVCs in one volume), `per-workspace` (one PVC per workspace for all declared volumes) and `unique` (one PVC per declared volume). Defaults to `common`.
